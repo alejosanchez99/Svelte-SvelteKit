@@ -9,6 +9,7 @@
   import FaAllergies from "svelte-icons/fa/FaAngellist.svelte";
   import ButtonEventForwarding from "../lib/components/slots/ButtonEventForwarding.svelte";
   import Each from "../lib/components/each/Each.svelte";
+    import CustomComponentEvent from "../lib/components/custom-events/CustomComponentEvent.svelte";
 </script>
 
 <!-- <App />
@@ -30,7 +31,9 @@
   
     Button Text
   </ButtonEventForwarding>
+  <Each />
 
 -->
 
-<Each />
+
+<CustomComponentEvent />
