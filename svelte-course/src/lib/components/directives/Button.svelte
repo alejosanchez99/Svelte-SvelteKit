@@ -31,7 +31,7 @@
     &.size-lg {
       padding: 20px 25px;
       font-size: 20px;
-    },
+    }
     &.shadow {
       box-shadow: 0 0 1px rgba(1,1,1,0.3);
     }

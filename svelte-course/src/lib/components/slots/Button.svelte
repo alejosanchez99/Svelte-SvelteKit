@@ -1,12 +1,13 @@
 <script>
+  export let disabled = false;
 </script>
 
-<button>
+<button {disabled}>
   <slot />
 </button>
 
 <style lang="scss">
-    @use '../../../styles/variables.scss';
+  @use "../../../styles/variables.scss";
 
   button {
     border: none;
@@ -15,9 +16,9 @@
     padding: 15px 20px;
     font-weight: bold;
     border-radius: 5px;
-    cursor:pointer;
+    cursor: pointer;
     &:hover {
-        background-color: variables.$color;
+      background-color: variables.$color;
     }
   }
 </style>
