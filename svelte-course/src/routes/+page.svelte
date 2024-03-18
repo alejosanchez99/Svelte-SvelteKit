@@ -13,6 +13,7 @@
     import InmutationData from "../lib/components/inmutation-data/InmutationData.svelte";
     import RemoveData from "../lib/components/remove-events/RemoveData.svelte";
     import TogglingData from "../lib/components/toggling-todo/TogglingData.svelte";
+    import ReadonlyProps from "../lib/components/readonly-props/ReadonlyProps.svelte";
 </script>
 
 <!-- <App />
@@ -38,7 +39,8 @@
   <CustomComponentEvent />
   <InmutationData />
   <RemoveData />
+  <TogglingData />
 
 -->
 
-<TogglingData />
+<ReadonlyProps />
