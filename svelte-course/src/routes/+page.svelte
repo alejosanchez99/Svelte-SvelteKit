@@ -1,4 +1,5 @@
 <script>
+	import Lifecycle from './../lib/components/lifecycle/Lifecycle.svelte';
   import ButtonDirective from "./../lib/components/directives/Button.svelte";
   import App from "../lib/components/initial/App.svelte";
   import Counter from "../lib/components/initial/Counter.svelte";
@@ -40,7 +41,9 @@
   <InmutationData />
   <RemoveData />
   <TogglingData />
+  <ReadonlyProps />
 
 -->
 
-<ReadonlyProps />
+<Lifecycle />
+
