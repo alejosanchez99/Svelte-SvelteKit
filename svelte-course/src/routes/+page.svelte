@@ -10,6 +10,9 @@
   import ButtonEventForwarding from "../lib/components/slots/ButtonEventForwarding.svelte";
   import Each from "../lib/components/each/Each.svelte";
     import CustomComponentEvent from "../lib/components/custom-events/CustomComponentEvent.svelte";
+    import InmutationData from "../lib/components/inmutation-data/InmutationData.svelte";
+    import RemoveData from "../lib/components/remove-events/RemoveData.svelte";
+    import TogglingData from "../lib/components/toggling-todo/TogglingData.svelte";
 </script>
 
 <!-- <App />
@@ -32,8 +35,10 @@
     Button Text
   </ButtonEventForwarding>
   <Each />
+  <CustomComponentEvent />
+  <InmutationData />
+  <RemoveData />
 
 -->
 
-
-<CustomComponentEvent />
+<TogglingData />
