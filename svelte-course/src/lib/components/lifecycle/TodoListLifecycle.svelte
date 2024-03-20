@@ -1,5 +1,3 @@
-<svelte:options immutable={true} />
-
 <script>
   import Button from "../slots/Button.svelte";
   import {
@@ -25,15 +23,24 @@
   });
 
   afterUpdate(() => {
-    console.log(listDiv.offsetHeight);
+    if (autoscroll) {
+      listDiv.scrollTo(0, listDiv.scrollHeight);
+      autoscroll = false;
+    }
   });
 
   onDestroy(() => {
-    console.log('Destroyed');
+    console.log("Destroyed");
   });
 
   export let todos = [];
-  export const readonlyProp = "readonly";
+  let prevTodos = todos;
+
+  $: {
+    autoscroll = todos.length > prevTodos.length;
+    prevTodos = todos;
+  }
+
   export const clearInput = () => {
     inputText = "";
   };
@@ -41,7 +48,7 @@
     input.focus();
   };
   let inputText = "";
-  let input, listDiv;
+  let input, listDiv, autoscroll, listDivHeight;
 
   const dispatch = createEventDispatcher();
 
@@ -74,7 +81,7 @@
 </script>
 
 <div class="todo-list-wrapper">
-  <div class="todo-list" bind:this={listDiv}>
+  <div class="todo-list" bind:offsetHeight={listDivHeight} bind:this={listDiv}>
     <ul>
       {#each todos as { id, title, completed } (id)}
         <li>
@@ -103,3 +110,10 @@
     <Button type="submit" disabled={!inputText}>Add</Button>
   </form>
 </div>
+
+<style>
+  .todo-list {
+    max-height: 150px;
+    overflow: auto;
+  }
+</style>

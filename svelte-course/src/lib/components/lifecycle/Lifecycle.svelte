@@ -49,11 +49,13 @@
 </label>
 
 {#if showList}
-  <TodoListLifecycle
-    {todos}
-    bind:this={todoList}
-    on:addTodo={handleAddTodo}
-    on:removetodo={handleRemoveTodo}
-    on:toggletodo={handleToggleTodo}
-  />
+  <div style:max-width="200px">
+    <TodoListLifecycle
+      {todos}
+      bind:this={todoList}
+      on:addTodo={handleAddTodo}
+      on:removetodo={handleRemoveTodo}
+      on:toggletodo={handleToggleTodo}
+    />
+  </div>
 {/if}
