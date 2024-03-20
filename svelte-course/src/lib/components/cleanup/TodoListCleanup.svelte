@@ -13,6 +13,8 @@
   export let todos = null;
   export let error = null;
   export let isLoading = false;
+  export let disabledAdding = false;
+  export let disabledItems = [];
 
   let prevTodos = todos;
   let inputText = "";
@@ -79,6 +81,7 @@
             <li class:completed>
               <label>
                 <input
+                  disabled={disabledItems.includes(id)}
                   on:input={(event) => {
                     event.currentTarget.checked = completed;
                     handleToggleTodo(id, !completed);
@@ -89,6 +92,7 @@
                 {title}
               </label>
               <button
+                disabled={disabledItems.includes(id)}
                 class="remove-todo-button"
                 aria-label="Remove todo: {title}"
                 on:click={() => handleRemoveTodo(id)}
@@ -108,9 +112,16 @@
   "
     on:submit|preventDefault={handledAddTodo}
   >
-    <input bind:this={input} bind:value={inputText} placeholder="New todo" />
-    <Button class="add-todo-button" type="submit" disabled={!inputText}
-      >Add</Button
+    <input
+      disabled={disabledAdding || !todos}
+      bind:this={input}
+      bind:value={inputText}
+      placeholder="New todo"
+    />
+    <Button
+      class="add-todo-button"
+      type="submit"
+      disabled={!inputText || disabledAdding || !todos}>Add</Button
     >
   </form>
 </div>
@@ -162,6 +173,10 @@
             right: 10px;
             cursor: pointer;
             display: none;
+            &:disabled {
+              opacity: 0.4;
+              cursor: not-allowed;
+            }       
             :global(svg) {
               fill: #bd1414;
             }
