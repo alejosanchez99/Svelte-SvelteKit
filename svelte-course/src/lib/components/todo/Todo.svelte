@@ -1,7 +1,9 @@
 <script>
   import { onMount } from "svelte";
-  import TodoListCleanup from "./TodoListCleanup.svelte";
+  import TodoListCleanup from "./TodoList.svelte";
   import { v4 as uuid } from "uuid";
+  import { blur, fade, fly, slide } from "svelte/transition";
+  import { bounceInOut, cubicInOut, cubicOut } from "svelte/easing";
 
   let todoList;
   let showList = true;
@@ -78,16 +80,37 @@
   };
 
   const handleToggleTodo = (event) => {
-    todos = todos.map((item) => {
-      if (item.id == event.detail.id) {
-        return {
-          ...item,
-          completed: event.detail.value,
-        };
-      }
+    const id = event.detail.id;
+    const value = event.detail.value;
 
-      return { ...item };
-    });
+    if (!disabledItems.includes(id)) {
+      disabledItems = [...disabledItems, id];
+      fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
+        method: "PATCH",
+        body: JSON.stringify({
+          completed: value,
+        }),
+        headers: {
+          "Content-type": "application/json;charset=UTF-8",
+        },
+      }).then(async (response) => {
+        if (response.ok) {
+          const updatedTodo = await response.json();
+
+          todos = todos.map((item) => {
+            if (item.id === id) {
+              return updatedTodo;
+            }
+
+            return { ...item };
+          });
+        } else {
+          alert("An error has ocurred.");
+        }
+      });
+
+      disabledItems = disabledItems.filter((itemId) => itemId !== id);
+    }
   };
 </script>
 
@@ -97,7 +120,15 @@
 </label>
 
 {#if showList}
-  <div style:max-width="400px">
+  <div
+    in:slide={{ duration: 700, easing: cubicInOut }}
+    out:blur={{ amount: 10, duration: 700 }}
+    on:introstart={() => {console.log('introstart');}}
+    on:introend={() => {console.log('introend');}}
+    on:outrostart={() => {console.log('outrostart');}}
+    on:outoend={() => {console.log('outoend');}}
+    style:max-width="400px"
+  >
     <TodoListCleanup
       {todos}
       {error}
@@ -108,6 +139,8 @@
       on:addTodo={handleAddTodo}
       on:removetodo={handleRemoveTodo}
       on:toggletodo={handleToggleTodo}
-    />
+    >
+      <!-- <svelte:fragment slot="title">test</svelte:fragment> -->
+    </TodoListCleanup>
   </div>
 {/if}

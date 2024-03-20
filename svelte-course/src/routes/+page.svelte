@@ -15,7 +15,7 @@
     import RemoveData from "../lib/components/remove-events/RemoveData.svelte";
     import TogglingData from "../lib/components/toggling-todo/TogglingData.svelte";
     import ReadonlyProps from "../lib/components/readonly-props/ReadonlyProps.svelte";
-    import Cleanup from '../lib/components/cleanup/Cleanup.svelte';
+    import Todo from '../lib/components/todo/Todo.svelte';
     import Captcha from '../lib/components/captcha/CaptchaGoogle.svelte';
     import CaptchaGoogle from '../lib/components/captcha/CaptchaGoogle.svelte';
     import CaptchaGoogle2 from '../lib/components/captcha/CaptchaGoogle2.svelte';
@@ -52,6 +52,6 @@
   <CaptchaGoogle />
 -->
 
-<Cleanup />
+<Todo />
 
 
