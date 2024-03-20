@@ -48,10 +48,10 @@
   <ReadonlyProps />
   <Lifecycle />
 
-  <Cleanup />
   <CaptchaGoogle2 />
+  <CaptchaGoogle />
 -->
 
-<CaptchaGoogle />
+<Cleanup />
 
 

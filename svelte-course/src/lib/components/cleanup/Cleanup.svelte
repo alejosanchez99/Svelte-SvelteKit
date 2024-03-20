@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from "svelte";
   import TodoListCleanup from "./TodoListCleanup.svelte";
   import { v4 as uuid } from "uuid";
 
@@ -6,21 +7,29 @@
   let showList = true;
 
   let todos = null;
+  let error = null;
+  let isLoading = false;
+
+  onMount(() => {
+    loadTodos();
+  });
 
   const loadTodos = () => {
-    return fetch("https://jsonplaceholder.typicode.com/todos?limit=10").then(
-      (response) => {
+    isLoading = true;
+
+    fetch("https://jsonplaceholder.typicode.com/todos?limit=10").then(
+      async (response) => {
         if (response.ok) {
-          return response.json();
+          todos = await response.json();
         } else {
-          throw new Error("An error has occurred.");
+          error = "An error has occurred.";
         }
       },
     );
+
+    isLoading = false;
   };
 
-  let promise = loadTodos();
-  
   const handleAddTodo = (event) => {
     event.preventDefault();
     todos = [
@@ -59,24 +68,15 @@
 </label>
 
 {#if showList}
-  {#await promise}
-    <p>Loading ...</p>
-  {:then todos}
-    <div style:max-width="400px">
-      <TodoListCleanup
-        {todos}
-        bind:this={todoList}
-        on:addTodo={handleAddTodo}
-        on:removetodo={handleRemoveTodo}
-        on:toggletodo={handleToggleTodo}
-      />
-    </div>
-  {:catch error}
-    <p>{error.message || "An error has occurred"}</p>
-  {/await}
-  <button
-    on:click={() => {
-      promise = loadTodos();
-    }}>Refresh</button
-  >
+  <div style:max-width="400px">
+    <TodoListCleanup
+      {todos}
+      {error}
+      {isLoading}
+      bind:this={todoList}
+      on:addTodo={handleAddTodo}
+      on:removetodo={handleRemoveTodo}
+      on:toggletodo={handleToggleTodo}
+    />
+  </div>
 {/if}
