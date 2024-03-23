@@ -2,6 +2,7 @@
   import Button from "../slots/Button.svelte";
   import { afterUpdate, createEventDispatcher } from "svelte";
   import FaRegTrashAlt from "svelte-icons/fa/FaRegTrashAlt.svelte";
+  import { scale } from "svelte/transition";
 
   afterUpdate(() => {
     if (autoscroll) {
@@ -81,7 +82,10 @@
             {@const { id, completed, title } = todo}
             <li>
               <slot {todo} {handleToggleTodo} {index}>
-                <div class:completed>
+                <div
+                  transition:scale|local={{ start: 0.5, duration: 300 }}
+                  class:completed
+                >
                   <label>
                     <input
                       disabled={disabledItems.includes(id)}

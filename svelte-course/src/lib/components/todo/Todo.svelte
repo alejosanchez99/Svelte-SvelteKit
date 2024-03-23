@@ -123,10 +123,18 @@
   <div
     in:slide={{ duration: 700, easing: cubicInOut }}
     out:blur={{ amount: 10, duration: 700 }}
-    on:introstart={() => {console.log('introstart');}}
-    on:introend={() => {console.log('introend');}}
-    on:outrostart={() => {console.log('outrostart');}}
-    on:outoend={() => {console.log('outoend');}}
+    on:introstart={() => {
+      console.log("introstart");
+    }}
+    on:introend={() => {
+      console.log("introend");
+    }}
+    on:outrostart={() => {
+      console.log("outrostart");
+    }}
+    on:outoend={() => {
+      console.log("outoend");
+    }}
     style:max-width="400px"
   >
     <TodoListCleanup
@@ -143,4 +151,11 @@
       <!-- <svelte:fragment slot="title">test</svelte:fragment> -->
     </TodoListCleanup>
   </div>
+  {#if todos}
+    <p>
+      Number of todos: {#key todos.length}
+        <span style:display="inline-block" in:fly|local={{ y: -10 }}> {todos.length}</span>
+      {/key}
+    </p>
+  {/if}
 {/if}
