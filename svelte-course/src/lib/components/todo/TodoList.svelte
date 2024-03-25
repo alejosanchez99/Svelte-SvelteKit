@@ -3,7 +3,7 @@
   import { afterUpdate, createEventDispatcher } from "svelte";
   import FaRegTrashAlt from "svelte-icons/fa/FaRegTrashAlt.svelte";
   import { flip } from "svelte/animate";
-  import { scale } from "svelte/transition";
+  import { crossfade, scale } from "svelte/transition";
 
   export let todos = null;
   export let error = null;
@@ -75,6 +75,13 @@
       value,
     });
   };
+
+  const [send, recieve] = crossfade({
+    duration: 400,
+    fallback(node) {
+      return scale(node, { start: 0.5, duration: 300 });
+    },
+  });
 </script>
 
 <div class="todo-list-wrapper">
@@ -101,7 +108,8 @@
                   <li animate:flip={{ duration: 300 }}>
                     <slot {todo} {handleToggleTodo} {index}>
                       <div
-                        transition:scale|local={{ start: 0.5, duration: 300 }}
+                        in:recieve={{ key: id }}
+                        out:send={{ key: id }}
                         class:completed
                       >
                         <label>
