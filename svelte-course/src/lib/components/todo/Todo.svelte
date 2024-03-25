@@ -49,7 +49,7 @@
     }).then(async (response) => {
       if (response.ok) {
         const todo = await response.json();
-        todos = [...todos, { ...todo, id: uuid() }];
+        todos = [{ ...todo, id: uuid() }, ...todos];
         todoList.clearInput();
       } else {
         alert("An error has occurred.");
@@ -120,29 +120,14 @@
 </label>
 
 {#if showList}
-  <div
-    in:slide={{ duration: 700, easing: cubicInOut }}
-    out:blur={{ amount: 10, duration: 700 }}
-    on:introstart={() => {
-      console.log("introstart");
-    }}
-    on:introend={() => {
-      console.log("introend");
-    }}
-    on:outrostart={() => {
-      console.log("outrostart");
-    }}
-    on:outoend={() => {
-      console.log("outoend");
-    }}
-    style:max-width="400px"
-  >
+  <div style:max-width="800px">
     <TodoListCleanup
       {todos}
       {error}
       disabledAdding={isAdding}
       {disabledItems}
       {isLoading}
+      scrollOnAdd="top"
       bind:this={todoList}
       on:addTodo={handleAddTodo}
       on:removetodo={handleRemoveTodo}
@@ -154,7 +139,9 @@
   {#if todos}
     <p>
       Number of todos: {#key todos.length}
-        <span style:display="inline-block" in:fly|local={{ y: -10 }}> {todos.length}</span>
+        <span style:display="inline-block" in:fly|local={{ y: -10 }}>
+          {todos.length}</span
+        >
       {/key}
     </p>
   {/if}
