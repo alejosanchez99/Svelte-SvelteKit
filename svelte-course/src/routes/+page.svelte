@@ -19,6 +19,7 @@
     import Captcha from '../lib/components/captcha/CaptchaGoogle.svelte';
     import CaptchaGoogle from '../lib/components/captcha/CaptchaGoogle.svelte';
     import CaptchaGoogle2 from '../lib/components/captcha/CaptchaGoogle2.svelte';
+    import Store from '../lib/components/stores/Store.svelte';
 </script>
 
 <!-- <App />
@@ -50,8 +51,9 @@
 
   <CaptchaGoogle2 />
   <CaptchaGoogle />
+
+  <Todo />
 -->
 
-<Todo />
 
-
+<Store />
