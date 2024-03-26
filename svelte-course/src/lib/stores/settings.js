@@ -7,7 +7,7 @@ const settings = writable(
     fontSize: 12,
   },
   (set) => {
-    cosnt timer = setTimeout(() => {
+    const timer = setTimeout(() => {
       set({
         colorScheme: "light",
         language: "en",
