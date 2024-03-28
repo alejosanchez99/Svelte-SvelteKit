@@ -21,6 +21,7 @@
   import CaptchaGoogle2 from "../lib/components/captcha/CaptchaGoogle2.svelte";
   import Store from "../lib/components/stores/Store.svelte";
   import Context from "../lib/components/context/Context.svelte";
+    import Konva from "../lib/components/konva/Konva.svelte";
 </script>
 
 <!-- <App />
@@ -55,6 +56,7 @@
 
   <Todo />
   <Store />
+  <Context />
 -->
 
-<Context />
+<Konva />
