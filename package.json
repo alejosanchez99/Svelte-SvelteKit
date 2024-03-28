@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "d3-interpolate": "^3.0.1",
-    "svelte-icons": "^2.1.0",
-    "uuid": "^9.0.1"
-  }
-}
