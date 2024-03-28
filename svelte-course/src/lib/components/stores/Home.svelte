@@ -1,24 +1,14 @@
 <script>
-  import { tweened } from "svelte/motion";
-  import { cubicOut } from "svelte/easing";
-  import { interpolateRgb } from "d3-interpolate";
+  import { spring } from "svelte/motion";
 
-  const boxProps = tweened(
-    { width: 100, height: 100, color: "purple" },
+  const boxProps = spring(
+    { width: 100, height: 100 },
     {
-      duration: 200,
-      easing: cubicOut,
-      interpolate: (a, b) => (t) => {
-        const deltaWidth = b.width - a.width;
-        const deltaHeight = b.height - a.deltaHeight;
-        const color = interpolateRgb(a.color, b.color)(t);
-
-        return {
-          width: a.width + deltaWidth * t,
-          height: a.height + deltaHeight * t,
-          color,
-        };
-      },
+      stiffness: 0.1,
+      damping: 0.8,
+    },
+    {
+      soft: 1,
     },
   );
 </script>
@@ -28,11 +18,10 @@
     await boxProps.set({
       width: Math.random() * 500,
       height: Math.random() * 500,
-      color: `${Math.floor(Math.random() * 16777215).toString(16)}`,
     });
   }}>Random box</button
 >
 
 <div
-  style="width: {$boxProps.width}px; height: {$boxProps.height}px; background-color: {$boxProps.color};"
+  style="width: {$boxProps.width}px; height: {$boxProps.height}px; background-color: purple;"
 />
